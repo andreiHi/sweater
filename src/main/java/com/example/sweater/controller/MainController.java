@@ -12,29 +12,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
     private MessageRepository messageRepository;
 
     @Autowired
-    public GreetingController(MessageRepository repository) {
+    public MainController(MessageRepository repository) {
         this.messageRepository = repository;
     }
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Map<String, Object> map) {
-        map.put("name", name);
+    @GetMapping("/")
+    public String greeting(Map<String, Object> map) {
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> map) {
         Iterable<Message> messages = messageRepository.findAll();
         map.put("messages", messages);
         return "main";
     }
 
-    @PostMapping("main")
+    @PostMapping("/main")
     public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> map) {
         Message message = new Message(text, tag);
         messageRepository.save(message);
