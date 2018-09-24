@@ -19,8 +19,8 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
 
-
     private  final UserRepository userRepo;
+
     @Autowired
     public RegistrationController(UserRepository userRepo) {
         this.userRepo = userRepo;
