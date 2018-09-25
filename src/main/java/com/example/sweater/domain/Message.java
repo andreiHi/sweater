@@ -2,6 +2,11 @@ package com.example.sweater.domain;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +14,14 @@ import javax.persistence.*;
  * @version $Id$.
  * @since 0.1.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(of = {"id"})
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_id_text", columnList = "id, text, tag")
+})
 public class Message {
 
     @Id
@@ -23,47 +35,14 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
-    public Message() {
-    }
-
-    public Message(String text, String tag,User user) {
+    public Message(String text, String tag, User user) {
         this.author = user;
         this.text = text;
         this.tag = tag;
     }
 
     public String getAuthorName() {
-        return author!=null ? author.getUsername() : "<none>";
-    }
-    public int getId() {
-        return id;
+        return author != null ? author.getUsername() : "<none>";
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
 }

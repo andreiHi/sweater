@@ -27,12 +27,12 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration")
-    public String registration () {
+    public String registration() {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object>map) {
+    public String addUser(User user, Map<String, Object> map) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
         if (userFromDb != null) {
             map.put("message", "User exists!");
