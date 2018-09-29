@@ -71,7 +71,7 @@ public class MainController {
             String resultFileName = uuidFile + "." + file.getOriginalFilename();
             message.setFilename(resultFileName);
             try {
-                file.transferTo(new File( uploadPath + "/" + resultFileName));
+                file.transferTo(new File(uploadPath + "/" + resultFileName));
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
