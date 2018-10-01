@@ -3,10 +3,12 @@ package com.example.sweater.service;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -24,17 +26,26 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
     private final MailSender mailSender;
 
+    @Autowired
+    private final PasswordEncoder encoder;
+
     @Value("${develop.path}")
     private String developPath;
 
-    public UserService(UserRepository userRepo, MailSender mailSender) {
+    public UserService(UserRepository userRepo, MailSender mailSender, PasswordEncoder encoder) {
         this.userRepo = userRepo;
         this.mailSender = mailSender;
+        this.encoder = encoder;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepo.findByUsername(s);
+        User user = userRepo.findByUsername(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
     }
 
     public boolean addUser(User user) {
@@ -45,6 +56,7 @@ public class UserService implements UserDetailsService {
             user.setActive(true);
             user.setRoles(Collections.singleton(Role.USER));
             user.setActivationCode(UUID.randomUUID().toString());
+            user.setPassword(encoder.encode(user.getPassword()));
             userRepo.save(user);
             sendMessage(user);
         }
