@@ -31,7 +31,8 @@
         <label for="password2" class="col-sm-2 col-form-label">Password:</label>
         <div class="col-sm-6">
             <input class="form-control ${(password2Error??)?string('is-invalid','')}" type="password"
-                   id="password2" name="password2" placeholder="Retype password"/>
+                   id="password2" name="password2"
+                   placeholder="Retype password"/>
             <#if password2Error??>
                     <div class="invalid-feedback">
                         ${password2Error}
@@ -43,7 +44,8 @@
         <label for="email" class="col-sm-2 col-form-label">Email:</label>
         <div class="col-sm-6">
         <input class="form-control ${(emailError??)?string('is-invalid','')}"
-               type="email" id="email" name="email" placeholder="some@some.com"
+               type="email" id="email" name="email"
+               placeholder="some@some.com"
                value="<#if user??>${user.email}</#if>"/>
             <#if emailError??>
                     <div class="invalid-feedback">
@@ -51,6 +53,14 @@
                     </div>
             </#if>
         </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="g-recaptcha" data-sitekey="6LdVCkgUAAAAAHqmzhPZc_-gC3Nu50OyoFrgR6vo"></div>
+         <#if captchaError??>
+       <div class="alert alert-danger" role="alert">
+           ${captchaError}
+       </div>
+         </#if>
     </div>
     </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
