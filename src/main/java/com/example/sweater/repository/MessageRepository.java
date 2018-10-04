@@ -11,7 +11,7 @@ import java.util.List;
  * @since 0.1.
  */
 
-public interface MessageRepository extends CrudRepository<Message, Integer> {
+public interface MessageRepository extends CrudRepository<Message, Long> {
 
     List<Message> findByTag(String tag);
 

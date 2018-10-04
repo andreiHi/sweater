@@ -2,6 +2,7 @@ package com.example.sweater.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.Set;
  */
 @Data
 @Entity
+@EqualsAndHashCode(of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usr", indexes = {
@@ -47,6 +49,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Message> messages;
 
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);

@@ -25,11 +25,9 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepo;
     private final MailSender mailSender;
-
-    @Autowired
     private final PasswordEncoder encoder;
 
-    @Value("${develop.path}")
+    @Value("${hostname}")
     private String developPath;
 
     public UserService(UserRepository userRepo, MailSender mailSender, PasswordEncoder encoder) {
@@ -44,7 +42,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return user;
     }
 
