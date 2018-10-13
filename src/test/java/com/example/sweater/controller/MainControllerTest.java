@@ -44,8 +44,7 @@ public class MainControllerTest {
         mockMvc.perform(get("/main"))
                 .andDo(print())
                 .andExpect(authenticated())
-                .andExpect(xpath("//div[@id='navbarSupportedContent']/div").string("andr"))
-        ;
+                .andExpect(xpath("//div[@id='navbarSupportedContent']/div").string("andr"));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class MainControllerTest {
     }
 
     @Test
-    public void addMessageToListTest() throws Exception{
+    public void addMessageToListTest() throws Exception {
         MockHttpServletRequestBuilder multipart = multipart("/main").file("file", "123".getBytes())
                 .param("text", "fifth")
                 .param("tag", "new one")

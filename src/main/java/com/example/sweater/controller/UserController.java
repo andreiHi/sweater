@@ -3,6 +3,7 @@ package com.example.sweater.controller;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,12 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
     private static final Logger LOG = LogManager.getLogger(UserController.class);
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping

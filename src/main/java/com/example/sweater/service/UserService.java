@@ -3,6 +3,7 @@ package com.example.sweater.service;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  * @since 0.1.
  */
 @Component
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepo;
@@ -29,11 +31,6 @@ public class UserService implements UserDetailsService {
     @Value("${hostname}")
     private String developPath;
 
-    public UserService(UserRepository userRepo, MailSender mailSender, PasswordEncoder encoder) {
-        this.userRepo = userRepo;
-        this.mailSender = mailSender;
-        this.encoder = encoder;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
