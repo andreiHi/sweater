@@ -108,7 +108,7 @@ public class MainController {
     ) {
         model.addAttribute("userChannel", user);
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-        model.addAttribute("subscribersCount",user.getSubscribers().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
         Set<Message> messages = user.getMessages();
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
